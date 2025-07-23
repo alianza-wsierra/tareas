@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Gestión de Tareas</title>
+    <meta charset="UTF-8">
+</head>
+<body>
+    <h1>Gestión de Tareas</h1>
+    <form action="/crear" method="post">
+        <input type="number" name="id" placeholder="ID" required>
+        <input type="text" name="tipo" placeholder="Tipo de tarea" required>
+        <select name="estado" required>
+            <option value="" disabled selected>Selecciona estado</option>
+            <option value="completada">Completada</option>
+            <option value="documentada">Documentada</option>
+            <option value="revisada por pares">Revisada por pares</option>
+            <option value="automatizada">Automatizada</option>
+            <option value="con estándares de calidad">Con estándares de calidad</option>
+        </select>
+        <button type="submit">Crear tarea</button>
+    </form>
+    <h2>Lista de tareas</h2>
+    <table border="1">
+        <tr>
+            <th>ID</th>
+            <th>Tipo</th>
+            <th>Estado</th>
+            <th>Acción</th>
+        </tr>
+        <tr th:each="tarea : ${tareas}">
+            <td th:text="${tarea.id}"></td>
+            <td th:text="${tarea.tipoTarea}"></td>
+            <td th:text="${tarea.estado}"></td>
+            <td>
+                <form action="/marcar" method="post" style="display:inline;">
+                    <input type="hidden" name="id" th:value="${tarea.id}">
+                    <select name="estado" required>
+                        <option value="" disabled selected>Selecciona estado</option>
+                        <option value="completada">Completada</option>
+                        <option value="documentada">Documentada</option>
+                        <option value="revisada por pares">Revisada por pares</option>
+                        <option value="automatizada">Automatizada</option>
+                        <option value="con estándares de calidad">Con estándares de calidad</option>
+                    </select>
+                    <button type="submit">Cambiar estado</button>
+                </form>
+            </td>
+        </tr>
+    </table>
+</body>
+</html>
